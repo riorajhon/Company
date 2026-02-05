@@ -1,0 +1,20 @@
+.authSection {
+  padding-top: 48px;
+  padding-bottom: 64px;
+}
+
+.narrow {
+  max-width: 420px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.sub {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}

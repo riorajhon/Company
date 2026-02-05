@@ -1,0 +1,29 @@
+.narrow {
+  max-width: 560px;
+}
+
+.contactHero {
+  padding-top: 32px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.pageTitle {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.lead {
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  font-size: 15px;
+  line-height: 1.6;
+}

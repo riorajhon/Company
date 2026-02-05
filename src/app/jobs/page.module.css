@@ -1,0 +1,41 @@
+.jobsHero {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-elevated);
+}
+
+.pageTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.jobsSection {
+  padding-top: 32px;
+}
+
+.resultsCount {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.jobList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.noJobs {
+  color: var(--text-muted);
+  padding: 48px 24px;
+  text-align: center;
+  font-size: 15px;
+}

@@ -1,0 +1,28 @@
+.narrow {
+  max-width: 560px;
+}
+
+.backLink {
+  display: inline-block;
+  margin-bottom: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.backLink:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.pageTitle {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}

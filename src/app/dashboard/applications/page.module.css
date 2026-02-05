@@ -1,0 +1,73 @@
+.page {
+  max-width: 960px;
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.empty {
+  color: var(--text-muted);
+  padding: 32px !important;
+  text-align: center;
+}
+
+.empty a {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.jobLink {
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.jobLink:hover {
+  color: var(--accent);
+  text-decoration: none;
+}

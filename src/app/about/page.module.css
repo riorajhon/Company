@@ -1,0 +1,62 @@
+.narrow {
+  max-width: 680px;
+}
+
+.aboutHero {
+  padding-top: 32px;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.pageTitle {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  line-height: 1.25;
+}
+
+.lead {
+  font-size: 17px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.blockTitle {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.body {
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.list {
+  list-style: none;
+}
+
+.list li {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+.list li:last-child {
+  border-bottom: none;
+}
+
+.list strong {
+  color: var(--text);
+  margin-right: 8px;
+}

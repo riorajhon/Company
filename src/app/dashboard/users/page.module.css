@@ -1,0 +1,193 @@
+.page {
+  max-width: 960px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.tableWrap {
+  margin-top: 24px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+}
+
+.formSection {
+  margin-bottom: 24px;
+  padding: 20px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.formSection h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.formRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+.formRow label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.formRow input,
+.formRow select {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  background: var(--bg);
+  color: var(--text);
+  min-width: 160px;
+}
+
+.formRow button {
+  padding: 8px 16px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.formRow button:hover {
+  background: var(--accent-hover);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions select {
+  padding: 4px 8px;
+  font-size: 13px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+}
+
+.actions button {
+  padding: 4px 10px;
+  font-size: 13px;
+  background: transparent;
+  color: #c00;
+  border: 1px solid rgba(200,0,0,0.4);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.actions button:hover {
+  background: rgba(200,0,0,0.08);
+}
+
+.actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 4px;
+  text-transform: capitalize;
+}
+
+.badgeManager {
+  background: var(--bg);
+  color: var(--text-muted);
+}
+
+.badgeSuper_manager {
+  background: rgba(0, 163, 224, 0.15);
+  color: var(--accent);
+}
+
+.badgeApproved {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 4px;
+  color: #0a0;
+  background: rgba(0, 128, 0, 0.1);
+}
+
+.approveBtn {
+  padding: 4px 10px;
+  font-size: 13px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.approveBtn:hover {
+  background: var(--accent-hover);
+}
+
+.error {
+  font-size: 13px;
+  color: #c00;
+  margin-top: 8px;
+}
+
+.success {
+  font-size: 13px;
+  color: #0a0;
+  margin-top: 8px;
+}

@@ -1,0 +1,140 @@
+.page {
+  max-width: 960px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.newBtn {
+  padding: 10px 20px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+
+.newBtn:hover {
+  background: var(--accent-hover);
+  color: #fff;
+  text-decoration: none;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-elevated);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:hover {
+  background: var(--bg);
+}
+
+.empty {
+  color: var(--text-muted);
+  padding: 32px !important;
+  text-align: center;
+}
+
+.empty a {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.actions a,
+.actions button {
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.actions a:hover,
+.actions button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.actions button.danger:hover {
+  border-color: #c00;
+  color: #c00;
+}
+
+.jobTitleLink {
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.jobTitleLink:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.badgeLive {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  background: rgba(0, 163, 224, 0.15);
+  color: var(--accent);
+  border-radius: 4px;
+}
+
+.badgeDraft {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--bg);
+  color: var(--text-muted);
+  border-radius: 4px;
+}

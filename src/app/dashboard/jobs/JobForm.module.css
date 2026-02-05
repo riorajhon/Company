@@ -1,0 +1,156 @@
+.form {
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.error {
+  padding: 12px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: #c00;
+  font-size: 14px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.input {
+  padding: 10px 12px;
+  border: 1px solid var(--border, #c5cad1);
+  border-radius: var(--radius, 8px);
+  font-size: 15px;
+  background: var(--bg, #fff);
+  color: var(--text, #1a1d21);
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent, #00a3e0);
+  border-width: 1px;
+}
+
+textarea.input {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.checkLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.checkLabel input {
+  width: 18px;
+  height: 18px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.submit {
+  padding: 12px 24px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.submit:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.cancel {
+  font-size: 14px;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.cancel:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-muted, #6b7280);
+}
+
+.labelWithIcon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.labelWithIcon svg {
+  color: var(--accent, #00a3e0);
+  flex-shrink: 0;
+}
+
+.benefitsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+}
+
+.benefitCheck {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.benefitCheck input {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}

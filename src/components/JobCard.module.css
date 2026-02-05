@@ -1,0 +1,68 @@
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.2s ease;
+}
+
+.cardHover:hover {
+  transform: scale(1.02);
+  border-color: var(--primary-500, #00a3e0);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 163, 224, 0.12);
+}
+
+.dark .cardHover:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 163, 224, 0.15);
+}
+
+.cardHover:hover .metaIcon {
+  transform: translateX(2px);
+  transition: transform 0.2s ease;
+}
+
+.arrow {
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.cardHover:hover .arrow {
+  transform: translateX(4px);
+}
+
+.meta {
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--text-muted, #6b7280);
+}
+
+.metaBlock {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.metaBlock:last-child {
+  margin-bottom: 0;
+}
+
+.metaIcon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--accent, #00a3e0);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.metaLabel {
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+.metaItems {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .metaItems {
+    white-space: normal;
+  }
+}
