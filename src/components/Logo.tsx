@@ -22,13 +22,18 @@ function LogoIcon({ className }: { className?: string }) {
   );
 }
 
-export default function Logo() {
+export default function Logo({ variant }: { variant?: 'light' | 'dark' }) {
+  const isDarkBar = variant === 'dark';
   return (
     <Link 
       href="/" 
-      className="flex items-center gap-3 text-gray-900 dark:text-gray-100 hover:text-primary-500 transition-colors duration-200"
+      className={`flex items-center gap-3 transition-colors duration-200 ${
+        isDarkBar
+          ? 'text-slate-100 hover:text-white'
+          : 'text-gray-900 dark:text-gray-100 hover:text-primary-500'
+      }`}
     >
-      <LogoIcon className="w-8 h-8 text-primary-500" />
+      <LogoIcon className={`w-8 h-8 ${isDarkBar ? 'text-primary-400' : 'text-primary-500'}`} />
       <span className="text-lg font-bold">Sobapps</span>
     </Link>
   );

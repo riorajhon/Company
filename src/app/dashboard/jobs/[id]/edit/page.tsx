@@ -17,12 +17,12 @@ async function getJob(id: string) {
     location?: string;
     type: string;
     description: string;
-    requirements: string[];
     published: boolean;
     education?: string;
     keyKnowledgeSkills?: string[];
     pay?: string;
     benefits?: string[];
+    image?: string;
   };
   return {
     _id: j._id.toString(),
@@ -30,12 +30,12 @@ async function getJob(id: string) {
     workLocation: j.workLocation ?? j.location ?? '',
     type: j.type,
     description: j.description,
-    requirements: j.requirements ?? [],
     published: j.published,
     education: j.education ?? '',
     keyKnowledgeSkills: j.keyKnowledgeSkills ?? [],
     pay: j.pay ?? '',
     benefits: j.benefits ?? [],
+    image: j.image ?? '',
   };
 }
 
@@ -54,12 +54,12 @@ export default async function EditJobPage({ params }: { params: Promise<{ id: st
           workLocation: job.workLocation,
           type: job.type,
           description: job.description,
-          requirements: job.requirements,
           published: job.published,
           education: job.education,
           keyKnowledgeSkills: job.keyKnowledgeSkills,
           pay: job.pay,
           benefits: job.benefits,
+          image: job.image,
         }}
       />
     </div>

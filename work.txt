@@ -1,18 +1,4 @@
-there is exist super manager and manager and user
-
-
-
-i will explain this role
-    manager:
-        create jobs (CRUD)
-        accept jobs applied users
-        refer this for job detail https://www.dice.com/job-detail/31166cda-87e1-4acd-bb12-3d4253abb151
-    super manage:
-        all role manager
-        user management
-    user 
-        visit site 
-        search job
-        post job
-so you have to signin / sign up page and users don't need this only need now company employiers
-
+make profile page 
+    here managers can upload their avata
+    add social link linkedin and phonumber
+when job post managers have to upload image when they post job and add this image on job list page

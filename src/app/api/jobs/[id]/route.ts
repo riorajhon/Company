@@ -58,7 +58,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       location,
       type,
       description,
-      requirements,
+      image,
       published,
       education,
       keyKnowledgeSkills,
@@ -74,7 +74,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     }
     if (type != null) update.type = type;
     if (description != null) update.description = description;
-    if (requirements != null) update.requirements = Array.isArray(requirements) ? requirements : [];
+    if (image !== undefined) update.image = typeof image === 'string' ? image.trim() : '';
     if (published !== undefined) update.published = published !== false;
     if (education !== undefined) update.education = education ?? '';
     if (keyKnowledgeSkills !== undefined) update.keyKnowledgeSkills = Array.isArray(keyKnowledgeSkills) ? keyKnowledgeSkills : [];

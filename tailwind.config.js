@@ -43,11 +43,6 @@ module.exports = {
       maxWidth: {
         container: '1200px',
       },
-      animation: {
-        'fade-up': 'fadeUp 0.6s ease forwards',
-        'fade-in': 'fadeIn 0.6s ease forwards',
-        'hero-entrance': 'fadeUp 0.7s ease forwards',
-      },
       keyframes: {
         fadeUp: {
           from: {
@@ -77,6 +72,16 @@ module.exports = {
             transform: 'scale(1)',
           },
         },
+        flow: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        },
+      },
+      animation: {
+        'fade-up': 'fadeUp 0.6s ease forwards',
+        'fade-in': 'fadeIn 0.6s ease forwards',
+        'hero-entrance': 'fadeUp 0.7s ease forwards',
+        flow: 'flow 30s linear infinite',
       },
       transitionDuration: {
         400: '400ms',

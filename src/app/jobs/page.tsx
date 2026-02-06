@@ -1,4 +1,5 @@
 import { connectDB } from '@/lib/db';
+import '@/models/User'; // register User schema so populate('createdBy') works
 import { Job, type JobLean } from '@/models/Job';
 import JobCard from '@/components/JobCard';
 import JobsSearchBar from '@/components/JobsSearchBar';
@@ -21,15 +22,21 @@ async function getJobs(searchParams: { q?: string }) {
       { description: new RegExp(q, 'i') },
     ];
   }
-  const jobs = await Job.find(filter).sort({ createdAt: -1 }).lean() as unknown as JobLean[];
-  return jobs.map((j) => ({
-    ...j,
-    _id: j._id.toString(),
-    workLocation: j.workLocation ?? (j as { location?: string }).location ?? '',
-    keyKnowledgeSkills: j.keyKnowledgeSkills ?? [],
-    requirements: j.requirements ?? [],
-    benefits: j.benefits ?? [],
-  }));
+  const jobs = await Job.find(filter).sort({ createdAt: -1 }).populate('createdBy', 'avatar name').lean();
+  return jobs.map((j) => {
+    const job = j as unknown as JobLean & { createdBy?: { _id: unknown; avatar?: string; name?: string }; image?: string };
+    const creator = job.createdBy;
+    return {
+      ...job,
+      _id: job._id.toString(),
+      workLocation: job.workLocation ?? (job as { location?: string }).location ?? '',
+      keyKnowledgeSkills: job.keyKnowledgeSkills ?? [],
+      benefits: job.benefits ?? [],
+      image: job.image ?? '',
+      posterAvatar: creator?.avatar ?? '',
+      posterName: creator?.name ?? '',
+    };
+  });
 }
 
 export default async function JobsPage({
@@ -66,8 +73,10 @@ export default async function JobsPage({
                   title={job.title}
                   location={job.workLocation ?? ''}
                   type={job.type}
+                  image={job.image}
+                  posterAvatar={job.posterAvatar}
+                  posterName={job.posterName}
                   keyKnowledgeSkills={job.keyKnowledgeSkills}
-                  requirements={job.requirements}
                   benefits={job.benefits}
                 />
               ))

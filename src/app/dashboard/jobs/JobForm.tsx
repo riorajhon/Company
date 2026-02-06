@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
@@ -10,6 +11,7 @@ import {
   MapPinIcon,
   ListBulletIcon,
   CheckCircleIcon,
+  PhotoIcon,
 } from '@heroicons/react/24/outline';
 import { BENEFITS_OPTIONS } from '@/models/Job';
 import styles from './JobForm.module.css';
@@ -23,7 +25,7 @@ type JobFormData = {
   benefits: string[];
   workLocation: string;
   description: string;
-  requirementsText: string;
+  imageUrl: string;
   published: boolean;
 };
 
@@ -36,11 +38,11 @@ const defaultJob: JobFormData = {
   benefits: [],
   workLocation: '',
   description: '',
-  requirementsText: '',
+  imageUrl: '',
   published: true,
 };
 
-type InitialData = Partial<JobFormData> & { keyKnowledgeSkills?: string[]; requirements?: string[] };
+type InitialData = Partial<JobFormData> & { keyKnowledgeSkills?: string[]; image?: string };
 
 export default function JobForm({
   jobId,
@@ -50,6 +52,7 @@ export default function JobForm({
   initial?: InitialData;
 }) {
   const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const [form, setForm] = useState<JobFormData>(() => {
@@ -59,10 +62,8 @@ export default function JobForm({
       keyKnowledgeSkillsText: Array.isArray(initial?.keyKnowledgeSkills)
         ? initial.keyKnowledgeSkills.join('\n')
         : (initial?.keyKnowledgeSkillsText ?? ''),
-      requirementsText: Array.isArray(initial?.requirements)
-        ? initial.requirements.join('\n')
-        : (initial?.requirementsText ?? ''),
       benefits: initial?.benefits ?? [],
+      imageUrl: initial?.imageUrl ?? initial?.image ?? '',
     };
   });
 
@@ -73,6 +74,12 @@ export default function JobForm({
     setStatus('loading');
     setErrorMsg('');
     try {
+      let imageUrl = form.imageUrl.trim();
+      if (!jobId && !imageUrl) {
+        setErrorMsg('Please upload a job image. Image is required when posting a job.');
+        setStatus('error');
+        return;
+      }
       const url = jobId ? `/api/jobs/${jobId}` : '/api/jobs';
       const method = jobId ? 'PUT' : 'POST';
       const body = {
@@ -80,7 +87,7 @@ export default function JobForm({
         workLocation: form.workLocation.trim(),
         type: form.type,
         description: form.description.trim(),
-        requirements: form.requirementsText.split('\n').map((s) => s.trim()).filter(Boolean),
+        image: imageUrl || undefined,
         published: form.published,
         education: form.education.trim(),
         keyKnowledgeSkills: form.keyKnowledgeSkillsText.split('\n').map((s) => s.trim()).filter(Boolean),
@@ -91,6 +98,7 @@ export default function JobForm({
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
+        credentials: 'include',
       });
       const data = await res.json();
       if (!res.ok) {
@@ -130,6 +138,54 @@ export default function JobForm({
           placeholder="e.g. Senior Frontend Developer"
           className={styles.input}
         />
+      </label>
+
+      <label className={styles.label}>
+        <span className={styles.labelWithIcon}>
+          <PhotoIcon className="w-5 h-5" />
+          Job image * {jobId ? '(optional to change)' : ''}
+        </span>
+        <span className={styles.hint}>Upload an image for this job. It will be shown on the job list.</span>
+        <div className={styles.imageRow}>
+          {form.imageUrl && (
+            <div className={styles.imagePreview}>
+              <Image src={form.imageUrl} alt="" width={120} height={80} className={styles.previewImg} />
+            </div>
+          )}
+          <div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp,image/gif"
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+                setErrorMsg('');
+                const fd = new FormData();
+                fd.set('image', file);
+                try {
+                  const res = await fetch('/api/upload/job-image', { method: 'POST', body: fd, credentials: 'include' });
+                  const data = await res.json();
+                  if (res.ok && data.url) {
+                    setForm((f) => ({ ...f, imageUrl: data.url }));
+                  } else {
+                    setErrorMsg(data.error || 'Image upload failed');
+                  }
+                } catch {
+                  setErrorMsg('Network error during image upload');
+                }
+              }}
+              className={styles.fileInput}
+            />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className={styles.uploadBtn}
+            >
+              {form.imageUrl ? 'Change image' : 'Upload image'}
+            </button>
+          </div>
+        </div>
       </label>
 
       <label className={styles.label}>
@@ -234,18 +290,6 @@ export default function JobForm({
           required
           rows={8}
           placeholder="Describe the job, responsibilities, and what you offer..."
-          className={styles.input}
-        />
-      </label>
-
-      <label className={styles.label}>
-        Requirements
-        <span className={styles.hint}>One requirement per line. You can use spaces and multiple lines (e.g. &quot;5+ years experience in React&quot;).</span>
-        <textarea
-          value={form.requirementsText}
-          onChange={(e) => setForm((f) => ({ ...f, requirementsText: e.target.value }))}
-          rows={5}
-          placeholder="5+ years experience in React&#10;Proficiency in TypeScript&#10;Strong communication skills&#10;..."
           className={styles.input}
         />
       </label>

@@ -5,6 +5,7 @@ import styles from './layout.module.css';
 
 const links: { href: string; label: string }[] = [
   { href: '/dashboard', label: 'Overview' },
+  { href: '/dashboard/profile', label: 'Profile' },
   { href: '/dashboard/jobs', label: 'Jobs' },
   { href: '/dashboard/jobs/new', label: 'Post a job' },
   { href: '/dashboard/applications', label: 'Applications' },
@@ -27,6 +28,7 @@ export default function DashboardNav({
       {links.map(({ href, label }) => {
         let isActive = pathname === href;
         if (href === '/dashboard/applications') isActive = pathname === '/dashboard/applications' || pathname.includes('/applications');
+        if (href === '/dashboard/profile') isActive = pathname === '/dashboard/profile';
         if (href === '/dashboard/jobs') isActive = (pathname === '/dashboard/jobs' || pathname.startsWith('/dashboard/jobs/')) && pathname !== '/dashboard/jobs/new';
         if (href === '/dashboard/jobs/new') isActive = pathname === '/dashboard/jobs/new';
         return (

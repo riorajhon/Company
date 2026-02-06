@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="jobGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:var(--accent);stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:var(--accent);stop-opacity:0.04"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" rx="12" fill="url(#jobGrad)" stroke="var(--border)" stroke-width="1"/>
+  <rect x="40" y="40" width="120" height="160" rx="6" fill="var(--bg-card)" stroke="var(--border)"/>
+  <rect x="56" y="56" width="88" height="60" rx="4" fill="var(--border)" fill-opacity="0.4"/>
+  <rect x="56" y="128" width="60" height="8" rx="2" fill="var(--border)" fill-opacity="0.5"/>
+  <rect x="56" y="144" width="88" height="8" rx="2" fill="var(--border)" fill-opacity="0.3"/>
+  <rect x="180" y="40" width="120" height="160" rx="6" fill="var(--bg-card)" stroke="var(--border)"/>
+  <rect x="196" y="56" width="88" height="60" rx="4" fill="var(--border)" fill-opacity="0.4"/>
+  <rect x="320" y="40" width="120" height="160" rx="6" fill="var(--bg-card)" stroke="var(--border)"/>
+  <rect x="336" y="56" width="88" height="60" rx="4" fill="var(--border)" fill-opacity="0.4"/>
+</svg>

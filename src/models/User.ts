@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, models } from 'mongoose';
+import mongoose, { Schema, model, models, type Model } from 'mongoose';
 
 export type UserRole = 'manager' | 'super_manager';
 
@@ -10,6 +10,12 @@ export interface IUser {
   role: UserRole;
   /** If false, user cannot sign in until a super_manager approves. */
   approved: boolean;
+  /** Profile: avatar image URL (e.g. /uploads/avatars/xxx.jpg) */
+  avatar?: string;
+  /** LinkedIn profile URL */
+  linkedIn?: string;
+  /** Phone number */
+  phoneNumber?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -24,8 +30,11 @@ const UserSchema = new Schema<IUser>(
     name: { type: String, required: true, trim: true },
     role: { type: String, required: true, enum: ['manager', 'super_manager'] },
     approved: { type: Boolean, default: false },
+    avatar: { type: String, default: '' },
+    linkedIn: { type: String, default: '' },
+    phoneNumber: { type: String, default: '' },
   },
   { timestamps: true }
 );
 
-export const User = (models && models.User) ? models.User : model<IUser>('User', UserSchema);
+export const User: Model<IUser> = (models?.User ?? model<IUser>('User', UserSchema)) as Model<IUser>;

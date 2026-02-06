@@ -27,12 +27,24 @@ export default async function ApplyPage({ params }: { params: Promise<{ jobId: s
   if (!job) notFound();
   const workLocation = job.workLocation ?? (job as { location?: string }).location ?? '';
 
+  const metaParts = [workLocation, job.type].filter(Boolean);
+
   return (
-    <section className="section apply-page">
+    <section className={`section ${styles.applyPage}`}>
       <div className={`container ${styles.narrow}`}>
         <Link href={`/jobs/${jobId}`} className={styles.backLink}>← Back to job</Link>
-        <h1 className={styles.pageTitle}>Apply for {job.title}</h1>
-        <p className={styles.subtitle}>{[workLocation, job.type].filter(Boolean).join(' · ')}</p>
+
+        <h1 className={styles.pageTitle}>Apply for this job</h1>
+        <p className={styles.subtitle}>Sobapps · {job.title}</p>
+
+        {/* Indeed-style job summary */}
+        <div className={styles.jobSummary}>
+          <div className={styles.jobSummaryTitle}>{job.title}</div>
+          {metaParts.length > 0 && (
+            <div className={styles.jobSummaryMeta}>{metaParts.join(' · ')}</div>
+          )}
+        </div>
+
         <ApplyForm jobId={jobId} jobTitle={job.title} />
       </div>
     </section>

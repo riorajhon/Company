@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import { Application } from '@/models/Application';
 import { Job } from '@/models/Job';
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     await connectDB();
     const body = await request.json();

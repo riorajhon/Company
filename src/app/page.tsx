@@ -1,125 +1,203 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import JobCard from '@/components/JobCard';
+import styles from './page.module.css';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import Grid from '@mui/material/Grid';
 import HeroSearch from '@/components/HeroSearch';
 import HeroEntrance from '@/components/HeroEntrance';
 import TypingEffect from '@/components/TypingEffect';
 import AnimateOnScroll from '@/components/AnimateOnScroll';
-import { connectDB } from '@/lib/db';
-import { Job, type JobLean } from '@/models/Job';
-
+import TeamOfficeCarousel from '@/components/TeamOfficeCarousel';
 export const dynamic = 'force-dynamic';
 
-async function getFeaturedJobs() {
-  await connectDB();
-  const jobs = await Job.find({ published: true }).sort({ createdAt: -1 }).limit(6).lean() as unknown as JobLean[];
-  return jobs.map((j) => ({ ...j, _id: j._id.toString() }));
-}
-
 export default async function HomePage() {
-  const jobs = await getFeaturedJobs();
 
   return (
     <>
-      {/* Hero – two-column with image */}
-      <section className="relative py-12 md:py-16 overflow-hidden bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-        {/* Background pattern */}
+      {/* Hero – two-column with image; right column full-bleed (no padding) */}
+      <section className="relative overflow-hidden border-b border-gray-200 dark:border-gray-700">
+        {/* Background image */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 opacity-[0.02] bg-[radial-gradient(circle_at_1px_1px,_currentColor_1px,_transparent_0)] bg-[length:24px_24px]" />
-          <div className="absolute inset-0 bg-gradient-to-b from-gray-100 dark:from-gray-800 to-gray-50 dark:to-gray-900" />
+          <Image
+            src="/images/office.jpg"
+            alt=""
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/85 to-white/70 dark:from-gray-900/92 dark:via-gray-900/88 dark:to-gray-900/75" />
         </div>
-        
-        <div className="container relative">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div className="text-left">
-              <HeroEntrance>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 tracking-tight">
-                  <TypingEffect
-                    text="We're hiring. Join our team."
-                    speed={160}
-                    pauseAfter={2500}
-                    pauseBefore={800}
-                  />
-                </h1>
-                <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-                  Sobapps is building a strong tech team. We hire for blockchain, crypto, and full‑stack roles. Find an open job that fits your skills and grow with us.
-                </p>
-                <HeroSearch />
-                <Link href="/jobs" className="btn-primary inline-block mt-4">
-                  Browse open jobs
-                </Link>
-              </HeroEntrance>
-            </div>
-            <div className="flex justify-center items-center order-first lg:order-last">
-              <HeroEntrance>
-                <Image
-                  src="/images/hero.svg"
-                  alt=""
-                  width={480}
-                  height={360}
-                  className="w-full h-auto max-w-lg rounded-xl"
-                  priority
+
+        <div className="relative z-10 w-full flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 lg:gap-12 py-6 lg:py-8">
+          <div className="px-6 py-5 sm:px-8 sm:py-6 lg:px-10 lg:py-8 lg:max-w-[720px] order-2 lg:order-1">
+            <HeroEntrance>
+              <Typography variant="h3" component="h1" sx={{ fontWeight: 700, mb: 2, color: 'white', lineHeight: 1.2, whiteSpace: 'nowrap' }}>
+                <TypingEffect
+                  text="We're hiring. Join our team."
+                  speed={160}
+                  pauseAfter={2500}
+                  pauseBefore={800}
                 />
-              </HeroEntrance>
+              </Typography>
+              <Typography sx={{ fontSize: '1.125rem', color: 'rgba(255,255,255,0.95)', mb: 2 }}>
+                Your career deserves real impact—not just another job. We build blockchain, crypto, and full‑stack products. Join a team that ships.
+              </Typography>
+              <Typography component="div" sx={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.9)', mb: 3, display: 'flex', flexWrap: 'wrap', gap: 2, alignItems: 'center' }}>
+                <span className="flex items-center gap-1.5"><span className="text-primary-300">✓</span> Smarter tech</span>
+                <span className="flex items-center gap-1.5"><span className="text-primary-300">✓</span> Stronger growth</span>
+                <span className="flex items-center gap-1.5"><span className="text-primary-300">✓</span> Lasting impact</span>
+              </Typography>
+              <HeroSearch />
+            </HeroEntrance>
+          </div>
+          {/* Hero image section – stacked scrolling images */}
+          <div className="flex justify-end items-center lg:flex-1 lg:min-w-0 order-1 lg:order-2 p-[10px] px-4 sm:px-6 lg:px-0 lg:pl-0 lg:pr-[10px]">
+            <div className="h-[220px] sm:h-[260px] w-[180px] sm:w-[220px] overflow-hidden rounded-xl flex-shrink-0 bg-white/20 dark:bg-gray-800/40 backdrop-blur-sm border border-white/30 dark:border-gray-600/50">
+              <div className={`${styles.film} flex flex-col gap-2 animate-scroll-up`}>
+                <Image src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Team collaboration" width={220} height={165} className="w-full h-auto rounded-lg shadow-lg border border-white/20 object-cover aspect-[4/3] flex-shrink-0" priority sizes="220px" />
+                <Image src="/images/team.jpg" alt="Tech team at work" width={220} height={165} className="w-full h-auto rounded-lg shadow-lg border border-white/20 object-cover aspect-[4/3] flex-shrink-0" sizes="220px" />
+                <Image src="/images/employers.jpg" alt="Our team" width={220} height={165} className="w-full h-auto rounded-lg shadow-lg border border-white/20 object-cover aspect-[4/3] flex-shrink-0" sizes="220px" />
+                <Image src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80" alt="Team collaboration" width={220} height={165} className="w-full h-auto rounded-lg shadow-lg border border-white/20 object-cover aspect-[4/3] flex-shrink-0" sizes="220px" />
+                <Image src="/images/team.jpg" alt="Tech team at work" width={220} height={165} className="w-full h-auto rounded-lg shadow-lg border border-white/20 object-cover aspect-[4/3] flex-shrink-0" sizes="220px" />
+                <Image src="/images/employers.jpg" alt="Our team" width={220} height={165} className="w-full h-auto rounded-lg shadow-lg border border-white/20 object-cover aspect-[4/3] flex-shrink-0" sizes="220px" />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* About our team / by the numbers */}
-      <section className="section pt-16">
+      {/* Stats bar – Pumapulse-style numbers */}
+      <Box component="section" className="bg-gray-100 dark:bg-gray-800" sx={{ py: 5 }}>
+        <Container maxWidth="lg">
+          <AnimateOnScroll>
+            <Typography variant="overline" textAlign="center" sx={{ display: 'block', mb: 3, letterSpacing: 2, color: 'text.secondary' }}>
+              Great results start here
+            </Typography>
+          </AnimateOnScroll>
+          <Grid container spacing={4} justifyContent="center" sx={{ textAlign: 'center' }}>
+            <Grid size={{ xs: 6, md: 3 }}>
+              <AnimateOnScroll delay={0}>
+                <Typography variant="h4" fontWeight={700} color="primary.main" sx={{ lineHeight: 1.2 }}>Open roles</Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>We&apos;re always hiring</Typography>
+              </AnimateOnScroll>
+            </Grid>
+            <Grid size={{ xs: 6, md: 3 }}>
+              <AnimateOnScroll delay={60}>
+                <Typography variant="h4" fontWeight={700} color="primary.main" sx={{ lineHeight: 1.2 }}>One team</Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>Direct collaboration, no middleman</Typography>
+              </AnimateOnScroll>
+            </Grid>
+            <Grid size={{ xs: 6, md: 3 }}>
+              <AnimateOnScroll delay={120}>
+                <Typography variant="h4" fontWeight={700} color="primary.main" sx={{ lineHeight: 1.2 }}>Ship & grow</Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>Real products, real impact</Typography>
+              </AnimateOnScroll>
+            </Grid>
+            <Grid size={{ xs: 6, md: 3 }}>
+              <AnimateOnScroll delay={180}>
+                <Typography variant="h4" fontWeight={700} color="primary.main" sx={{ lineHeight: 1.2 }}>Remote-first</Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>Work from anywhere</Typography>
+              </AnimateOnScroll>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* Core values – Pumapulse-style cards */}
+      <Box component="section" sx={{ py: 8 }}>
+        <Container maxWidth="lg">
+          <AnimateOnScroll>
+            <Typography variant="h4" fontWeight={700} textAlign="center" sx={{ mb: 1 }}>Smart values for smarter growth</Typography>
+            <Typography variant="body1" textAlign="center" color="text.secondary" sx={{ maxWidth: 560, mx: 'auto', mb: 5 }}>
+              What we believe in shapes how we build and who we hire.
+            </Typography>
+          </AnimateOnScroll>
+          <Grid container spacing={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
+              <AnimateOnScroll delay={0}>
+                <Box className="card p-5 h-full">
+                  <Typography variant="h6" fontWeight={700} sx={{ mb: 1.5, color: 'primary.main' }}>Trust first, always</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    We focus on honesty, reliability, and real results. No hidden terms—just a partnership built for the long run.
+                  </Typography>
+                </Box>
+              </AnimateOnScroll>
+            </Grid>
+            <Grid size={{ xs: 12, md: 4 }}>
+              <AnimateOnScroll delay={80}>
+                <Box className="card p-5 h-full">
+                  <Typography variant="h6" fontWeight={700} sx={{ mb: 1.5, color: 'primary.main' }}>Think fresh, build smart</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    We question, explore, and bring expert skills to the table. Real innovation comes from curiosity and execution.
+                  </Typography>
+                </Box>
+              </AnimateOnScroll>
+            </Grid>
+            <Grid size={{ xs: 12, md: 4 }}>
+              <AnimateOnScroll delay={160}>
+                <Box className="card p-5 h-full">
+                  <Typography variant="h6" fontWeight={700} sx={{ mb: 1.5, color: 'primary.main' }}>Take responsibility, make it happen</Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    We don&apos;t wait for change—we make it. Every challenge is a chance to grow; when we commit, we deliver.
+                  </Typography>
+                </Box>
+              </AnimateOnScroll>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* Image flow – one line with flow effect (marquee) */}
+      <section className="section py-8">
         <div className="container">
           <AnimateOnScroll>
-            <h2 className="text-xl font-semibold text-center mb-8 text-gray-900 dark:text-gray-100">
-              We're a tech company building products that matter
-            </h2>
-            <h3 className="text-sm font-semibold text-center mb-8 text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-              Sobapps at a glance
+            <h3 className="text-sm font-semibold text-center mb-6 text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+              Life at Sobapps
             </h3>
           </AnimateOnScroll>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-center max-w-4xl mx-auto">
-            <AnimateOnScroll delay={0}>
-              <div className="flex flex-col gap-2">
-                <span className="text-3xl md:text-4xl font-bold text-primary-500 tracking-tight leading-tight">Open jobs</span>
-                <span className="text-sm text-gray-600 dark:text-gray-400">We're always looking for great people</span>
-              </div>
-            </AnimateOnScroll>
-            <AnimateOnScroll delay={80}>
-              <div className="flex flex-col gap-2">
-                <span className="text-3xl md:text-4xl font-bold text-primary-500 tracking-tight leading-tight">One team</span>
-                <span className="text-sm text-gray-600 dark:text-gray-400">You work with us directly — no middleman</span>
-              </div>
-            </AnimateOnScroll>
-            <AnimateOnScroll delay={160}>
-              <div className="flex flex-col gap-2">
-                <span className="text-3xl md:text-4xl font-bold text-primary-500 tracking-tight leading-tight">Grow with us</span>
-                <span className="text-sm text-gray-600 dark:text-gray-400">Learn, ship, and advance your career here</span>
-              </div>
-            </AnimateOnScroll>
-            <AnimateOnScroll delay={240}>
-              <div className="flex flex-col gap-2">
-                <span className="text-3xl md:text-4xl font-bold text-primary-500 tracking-tight leading-tight">Blockchain & crypto</span>
-                <span className="text-sm text-gray-600 dark:text-gray-400">We hire for Web3, smart contracts, and crypto product roles</span>
-              </div>
-            </AnimateOnScroll>
-          </div>
-        </div>
-      </section>
-
-      {/* Blockchain & crypto skills / jobs */}
-      <section className="section py-10 bg-gray-50 dark:bg-gray-800/50 border-y border-gray-200 dark:border-gray-700">
-        <div className="container">
-          <AnimateOnScroll>
-            <h2 className="text-2xl md:text-3xl font-bold mb-3 text-center text-gray-900 dark:text-gray-100">
-              Blockchain & crypto jobs
-            </h2>
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-              We build in Web3 and crypto. Open roles may include smart contract development, DeFi, NFT platforms, and full‑stack crypto products. If you have experience with Solidity, Ethereum, or related stacks, check our open jobs.
-            </p>
-            <div className="flex justify-center">
-              <Link href="/jobs" className="btn-primary">View blockchain & crypto jobs</Link>
+          <div className="relative w-full overflow-hidden">
+            <div className="flex gap-4 animate-flow w-max">
+              {[
+                { src: '/images/office.jpg', alt: 'Office' },
+                { src: '/images/team.jpg', alt: 'Tech team' },
+                { src: '/images/design.jpg', alt: 'Design and roles' },
+                { src: '/images/employers.jpg', alt: 'Team' },
+                { src: '/images/hero-bg.jpg', alt: 'Work with us' },
+              ].map((img, i) => (
+                <div key={i} className="flex-shrink-0 w-64 md:w-72">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={288}
+                    height={180}
+                    className="w-full h-auto rounded-xl border border-gray-200 dark:border-gray-700 object-cover"
+                  />
+                </div>
+              ))}
+              {/* Duplicate set for seamless loop */}
+              {[
+                { src: '/images/office.jpg', alt: 'Office' },
+                { src: '/images/team.jpg', alt: 'Tech team' },
+                { src: '/images/design.jpg', alt: 'Design and roles' },
+                { src: '/images/employers.jpg', alt: 'Team' },
+                { src: '/images/hero-bg.jpg', alt: 'Work with us' },
+              ].map((img, i) => (
+                <div key={`dup-${i}`} className="flex-shrink-0 w-64 md:w-72">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={288}
+                    height={180}
+                    className="w-full h-auto rounded-xl border border-gray-200 dark:border-gray-700 object-cover"
+                  />
+                </div>
+              ))}
             </div>
-          </AnimateOnScroll>
+          </div>
         </div>
       </section>
 
@@ -128,23 +206,19 @@ export default async function HomePage() {
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <AnimateOnScroll>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight text-gray-900 dark:text-gray-100">
-                Find your job at Sobapps
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                Browse our open positions by location or type. We post roles in blockchain, crypto, and full‑stack — from smart contracts to product engineering. Filter to what fits your skills and apply in a few clicks.
+              <Typography variant="overline" sx={{ letterSpacing: 2, color: 'text.secondary', display: 'block', mb: 1 }}>Careers</Typography>
+              <h2 className="section-title mb-4">Find your spot at Sobapps</h2>
+              <p className="section-subtitle mb-6">
+                Browse open positions by role or skill. We hire for blockchain, crypto, and full‑stack—from smart contracts to product engineering. Apply in a few clicks.
               </p>
-              <Link href="/jobs" className="btn-primary">
-                Browse open jobs
-              </Link>
             </AnimateOnScroll>
             <AnimateOnScroll delay={100}>
               <Image 
-                src="/images/tech-pros.svg" 
-                alt="" 
+                src="/images/team.jpg" 
+                alt="Tech team" 
                 width={400} 
                 height={280} 
-                className="w-full h-auto max-w-md mx-auto rounded-xl" 
+                className="w-full h-auto max-w-md mx-auto rounded-xl object-cover" 
               />
             </AnimateOnScroll>
           </div>
@@ -153,66 +227,48 @@ export default async function HomePage() {
 
       {/* Career at Sobapps – resources */}
       <section className="section">
-        <div className="container">
+        <Container maxWidth="lg">
           <AnimateOnScroll>
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 leading-tight text-gray-900 dark:text-gray-100">
-              Life at Sobapps
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              Learn how we work, what we value, and why people join our team.
-            </p>
-            <p className="text-sm font-semibold mb-4 text-gray-900 dark:text-gray-100">
-              Explore
-            </p>
-          </AnimateOnScroll>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
-            {[
-              { href: '/jobs', emoji: '💼', label: 'Open jobs' },
-              { href: '/about', emoji: '🏠', label: 'How we work' },
-              { href: '/why-sobapp', emoji: '🧭', label: 'Why join us' },
-              { href: '/why-sobapp', emoji: '🌱', label: 'Career growth' },
-              { href: '/why-sobapp', emoji: '🤲', label: 'Culture & values' },
-              { href: '/contact', emoji: '✉️', label: 'Get in touch' },
-            ].map((item, i) => (
-              <AnimateOnScroll key={item.label} delay={i * 50}>
-                <Link 
-                  href={item.href} 
-                  className="card p-4 flex items-center gap-3 text-sm font-medium text-gray-900 dark:text-gray-100 hover:border-primary-500 hover:shadow-accent transition-all duration-200"
-                >
-                  <span className="text-lg">{item.emoji}</span> 
-                  {item.label}
-                </Link>
-              </AnimateOnScroll>
-            ))}
-          </div>
-          <AnimateOnScroll>
-            <Link href="/why-sobapp" className="text-primary-500 hover:text-primary-600 font-semibold">
-              Why work at Sobapps →
+            <Typography variant="overline" sx={{ letterSpacing: 2, color: 'text.secondary', display: 'block', mb: 1 }}>Culture</Typography>
+            <Typography variant="h4" fontWeight={700} sx={{ mb: 1 }}>Life at Sobapps</Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+              How we work, what we value, and why people join us.
+            </Typography>
+            <Link href="/why-sobapp" className="text-primary-500 hover:text-primary-600 font-semibold inline-flex items-center gap-1">
+              Why work at Sobapps <span aria-hidden>→</span>
             </Link>
           </AnimateOnScroll>
-        </div>
+        </Container>
       </section>
 
-      {/* We're building the team – with image */}
+      {/* We're building the team – carousel (team, office, building) + members */}
       <section className="section">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <AnimateOnScroll>
-              <Image 
-                src="/images/employers.svg" 
-                alt="" 
-                width={400} 
-                height={280} 
-                className="w-full h-auto max-w-md mx-auto rounded-xl" 
-              />
+              <TeamOfficeCarousel />
             </AnimateOnScroll>
             <AnimateOnScroll delay={100}>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 leading-tight text-gray-900 dark:text-gray-100">
-                We're building our tech team
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                We hire directly — no agencies. You'll work with our team on real products, with real impact. Check open jobs and apply when you're ready.
+              <Typography variant="overline" sx={{ letterSpacing: 2, color: 'text.secondary', display: 'block', mb: 1 }}>Join us</Typography>
+              <h2 className="section-title mb-4">We&apos;re building our tech team</h2>
+              <p className="section-subtitle mb-6">
+                We hire directly—no agencies. Work on real products with real impact. Check open jobs and apply when you&apos;re ready.
               </p>
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Meet the team</span>
+                <div className="flex -space-x-2">
+                  {[1, 2, 3, 4].map((i) => (
+                    <Image
+                      key={i}
+                      src={`/images/members/member-${i}.jpg`}
+                      alt=""
+                      width={48}
+                      height={48}
+                      className="w-12 h-12 rounded-full border-2 border-white dark:border-gray-800 shadow"
+                    />
+                  ))}
+                </div>
+              </div>
               <div className="flex flex-wrap gap-3">
                 <Link href="/jobs" className="btn-primary">
                   View open jobs
@@ -226,21 +282,15 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Opportunity + testimonials */}
-      <section className="section">
-        <div className="container">
+      {/* Testimonials */}
+      <Box component="section" className="bg-gray-100 dark:bg-gray-800" sx={{ py: 8 }}>
+        <Container maxWidth="lg">
           <AnimateOnScroll>
-            <h2 className="text-2xl md:text-3xl font-bold mb-3 text-center text-gray-900 dark:text-gray-100">
-              Join our team
-            </h2>
-            <p className="text-center text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
-              See our open jobs, learn about our culture, and apply. We review every application and respond to everyone.
-            </p>
-            <div className="text-center mb-12">
-              <Link href="/jobs" className="btn-primary">
-                Browse open jobs
-              </Link>
-            </div>
+            <Typography variant="overline" textAlign="center" sx={{ display: 'block', letterSpacing: 2, color: 'text.secondary', mb: 1 }}>Testimonials</Typography>
+            <Typography variant="h4" fontWeight={700} textAlign="center" sx={{ mb: 2 }}>They had questions. Now they have results</Typography>
+            <Typography variant="body1" textAlign="center" color="text.secondary" sx={{ maxWidth: 560, mx: 'auto', mb: 5 }}>
+              See our open jobs, learn about our culture, and apply. We review every application.
+            </Typography>
           </AnimateOnScroll>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -260,128 +310,8 @@ export default async function HomePage() {
               </AnimateOnScroll>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Browse open jobs */}
-      <section className="section">
-        <div className="container">
-          <AnimateOnScroll>
-            <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900 dark:text-gray-100">
-              Browse by job &amp; skill
-            </h2>
-          </AnimateOnScroll>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-            <AnimateOnScroll delay={0}>
-              <div>
-                <h3 className="text-xs font-semibold mb-4 text-gray-600 dark:text-gray-400 uppercase tracking-wider">
-                  Job title
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    'Software Developer', 'Full Stack Developer', 'Frontend Developer', 'Backend Developer',
-                    'DevOps Engineer', 'Data Scientist', 'Product Manager', 'Project Manager',
-                    'Business Analyst', 'QA Tester', 'Network Engineer', 'Web Developer'
-                  ].map((job) => (
-                    <Link
-                      key={job}
-                      href={`/jobs?q=${encodeURIComponent(job)}`}
-                      className="inline-block px-4 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300 hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-200"
-                    >
-                      {job}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </AnimateOnScroll>
-            <AnimateOnScroll delay={60}>
-              <div>
-                <h3 className="text-xs font-semibold mb-4 text-gray-600 dark:text-gray-400 uppercase tracking-wider">
-                  Data, AI &amp; ML skills
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    'Python', 'Machine Learning', 'Data Engineer', 'SQL', 'Artificial intelligence',
-                    'React', 'JavaScript', 'Java', 'AWS', 'Docker'
-                  ].map((skill) => (
-                    <Link
-                      key={skill}
-                      href={`/jobs?q=${encodeURIComponent(skill)}`}
-                      className="inline-block px-4 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300 hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-200"
-                    >
-                      {skill}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </AnimateOnScroll>
-            <AnimateOnScroll delay={120}>
-              <div>
-                <h3 className="text-xs font-semibold mb-4 text-gray-600 dark:text-gray-400 uppercase tracking-wider">
-                  Popular searches
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    { label: 'Remote tech jobs', href: '/jobs?type=Remote' },
-                    { label: 'Contract', href: '/jobs?type=Contract' },
-                    { label: 'IT jobs', href: '/jobs' },
-                    { label: 'Software engineering', href: '/jobs' },
-                    { label: 'Full-time', href: '/jobs?type=Full-time' },
-                    { label: 'Part time jobs', href: '/jobs' },
-                  ].map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className="inline-block px-4 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300 hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-200"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </AnimateOnScroll>
-          </div>
-          <AnimateOnScroll>
-            <Link href="/jobs" className="text-primary-500 hover:text-primary-600 font-semibold">
-              View all open jobs
-            </Link>
-          </AnimateOnScroll>
-        </div>
-      </section>
-
-      {/* Open positions */}
-      <section className="section">
-        <div className="container">
-          <AnimateOnScroll>
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">
-                Open positions
-              </h2>
-              <Link href="/jobs" className="text-sm font-semibold text-primary-500 hover:text-primary-600">
-                View all jobs →
-              </Link>
-            </div>
-          </AnimateOnScroll>
-          <div className="space-y-4">
-            {jobs.length === 0 ? (
-              <p className="text-gray-600 dark:text-gray-400 py-12 text-center">
-                No open positions right now. Check back soon.
-              </p>
-            ) : (
-              jobs.map((job, i) => (
-                <AnimateOnScroll key={job._id} delay={Math.min(i * 60, 180)}>
-                  <JobCard
-                    id={job._id}
-                    title={job.title}
-                    location={job.workLocation ?? (job as { location?: string }).location ?? ''}
-                    type={job.type}
-                  />
-                </AnimateOnScroll>
-              ))
-            )}
-          </div>
-        </div>
-      </section>
+        </Container>
+      </Box>
     </>
   );
 }

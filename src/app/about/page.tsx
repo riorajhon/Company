@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styles from './page.module.css';
 
 export const metadata = {
@@ -9,35 +10,44 @@ export default function AboutPage() {
   return (
     <>
       <section className={`section ${styles.aboutHero}`}>
-        <div className={`container ${styles.narrow}`}>
+        <div className={styles.heroBg}>
+          <Image
+            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1920&q=80"
+            alt=""
+            fill
+            className="object-cover opacity-25 dark:opacity-20"
+            priority
+            sizes="100vw"
+          />
+          <div className={styles.heroOverlay} />
+        </div>
+        <div className={`container ${styles.narrow} ${styles.heroContent}`}>
           <p className={styles.label}>About us</p>
           <h1 className={styles.pageTitle}>Built by developers, for developers</h1>
           <p className={styles.lead}>
-            We are a small team of engineers who care about clean code, clear communication,
-            and shipping products that real people use.
+            A technology company specializing in blockchain development, full‑stack applications,
+            crypto trading platforms, and decentralized solutions.
           </p>
         </div>
       </section>
 
       <section className="section">
         <div className={`container ${styles.narrow}`}>
-          <h2 className={styles.blockTitle}>What we do</h2>
+          <h2 className={styles.blockTitle}>Who we are</h2>
           <p className={styles.body}>
-            We build and maintain software products and help other teams ship faster.
-            We work across traditional full‑stack and in blockchain and crypto — smart contracts,
-            DeFi, Web3 apps, and crypto-native products. Our stack is modern and our processes are
-            lightweight: we prefer async updates, short cycles, and minimal meetings so you can focus on building.
+            Sobapps is a technology company specializing in blockchain development, full‑stack applications,
+            crypto trading platforms, and decentralized solutions. We help startups and enterprises bring their
+            blockchain ideas to life by delivering secure, scalable, and innovative digital products.
           </p>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className={`container ${styles.narrow}`}>
-          <h2 className={styles.blockTitle}>Blockchain & crypto</h2>
           <p className={styles.body}>
-            We hire for roles in blockchain and crypto: smart contract development (e.g. Solidity),
-            Ethereum and L2s, DeFi protocols, NFT platforms, and full‑stack crypto products.
-            If you have experience in Web3, on-chain tooling, or crypto infrastructure, check our open jobs.
+            Over the years, we have built a reputation for excellence in smart contract development, DeFi solutions,
+            NFT projects, crypto exchange platforms, and full‑stack web and mobile applications. Our team combines deep
+            technical expertise with a practical understanding of the crypto ecosystem, ensuring that every project we
+            handle is both reliable and future‑ready.
+          </p>
+          <p className={styles.body}>
+            At Sobapps, we believe in innovation, transparency, and collaboration. We are passionate about empowering
+            businesses to leverage blockchain and full‑stack technology to create real‑world impact and transform digital experiences.
           </p>
         </div>
       </section>

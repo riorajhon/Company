@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, models } from 'mongoose';
+import mongoose, { Schema, model, models, type Model } from 'mongoose';
 
 export const BENEFITS_OPTIONS = [
   'Dental insurance',
@@ -24,7 +24,8 @@ export interface IJob {
   /** @deprecated use workLocation - kept for backward compat */
   location?: string;
   description: string;
-  requirements: string[];
+  /** Job image URL (required when posting). Shown on job list. */
+  image?: string;
   published: boolean;
   /** Set when created by a manager; super_managers see all jobs */
   createdBy?: string;
@@ -46,11 +47,11 @@ const JobSchema = new Schema<IJob>(
     workLocation: { type: String, default: '' },
     location: { type: String }, // legacy – prefer workLocation
     description: { type: String, required: true },
-    requirements: [{ type: String }],
+    image: { type: String, default: '' },
     published: { type: Boolean, default: true },
     createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
   },
   { timestamps: true }
 );
 
-export const Job = (models && models.Job) ? models.Job : model<IJob>('Job', JobSchema);
+export const Job: Model<IJob> = (models?.Job ?? model<IJob>('Job', JobSchema)) as Model<IJob>;

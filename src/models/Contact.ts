@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, models } from 'mongoose';
+import mongoose, { Schema, model, models, type Model } from 'mongoose';
 
 export interface IContact {
   _id: string;
@@ -19,4 +19,4 @@ const ContactSchema = new Schema<IContact>(
   { timestamps: { createdAt: true, updatedAt: false } }
 );
 
-export const Contact = (models && models.Contact) ? models.Contact : model<IContact>('Contact', ContactSchema);
+export const Contact: Model<IContact> = (models?.Contact ?? model<IContact>('Contact', ContactSchema)) as Model<IContact>;

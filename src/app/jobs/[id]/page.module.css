@@ -1,10 +1,13 @@
+/* Job detail – reference layout (Indeed-style) */
 .narrow {
   max-width: 720px;
 }
 
 .backLink {
-  display: inline-block;
-  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 20px;
   font-size: 14px;
   font-weight: 500;
   color: var(--text-muted);
@@ -15,177 +18,312 @@
   text-decoration: none;
 }
 
-.applyTop {
-  margin-bottom: 20px;
+/* Header: title, meta line, response rate, actions */
+.jobHeader {
+  margin-bottom: 0;
 }
 
 .jobTitle {
   font-size: 28px;
   font-weight: 700;
-  margin-bottom: 12px;
   line-height: 1.25;
+  color: var(--text);
+  margin: 0 0 12px;
 }
 
-.metaRow {
+.metaLine {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
   font-size: 15px;
-  color: var(--text-muted);
-  margin-bottom: 12px;
-}
-
-.metaSep {
-  margin: 0 6px;
-  opacity: 0.7;
-  user-select: none;
+  color: var(--text);
+  margin-bottom: 8px;
 }
 
 .metaItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.metaSep {
+  color: var(--text-muted);
+  user-select: none;
+}
+
+.companyLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #2563eb;
+  text-decoration: none;
   font-weight: 500;
-  color: var(--text);
 }
 
-.tagRow {
+.companyLink:hover {
+  text-decoration: underline;
+}
+
+.extIcon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.responseRate {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0 0 20px;
+}
+
+.actionRow {
   display: flex;
+  align-items: center;
+  gap: 12px;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 24px;
-}
-
-.tag {
-  display: inline-block;
-  padding: 6px 12px;
-  font-size: 13px;
-  color: var(--text-muted);
-  background: var(--bg-elevated, #f0f0f0);
-  border: 1px solid var(--border, #e0e0e0);
-  border-radius: 999px;
-}
-
-.jobBody h2 {
-  font-size: 18px;
-  font-weight: 600;
-  margin: 24px 0 12px;
-}
-
-.prose {
-  color: var(--text-muted);
-  line-height: 1.65;
-  font-size: 15px;
-}
-
-.jobBody ul {
-  margin: 8px 0 0 20px;
-  color: var(--text-muted);
-  font-size: 15px;
-}
-
-.jobBody li {
-  margin-bottom: 6px;
 }
 
 .btnApply {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 12px 24px;
-  background: var(--accent);
+  min-width: 120px;
+  background: #2563eb;
   color: #fff;
   font-weight: 600;
-  border-radius: var(--radius);
   font-size: 15px;
+  border-radius: 8px;
+  border: none;
   text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s;
 }
 
 .btnApply:hover {
-  background: var(--accent-hover);
+  background: #1d4ed8;
   color: #fff;
   text-decoration: none;
 }
 
-.infoGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
-  margin-bottom: 24px;
-  padding: 20px;
-  background: var(--bg-elevated, #f8f9fa);
-  border: 1px solid var(--border, #e9ecef);
-  border-radius: var(--radius, 8px);
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
 }
 
-.infoItem {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
+.iconBtn:hover {
+  background: var(--bg);
+  border-color: var(--border);
 }
 
-.infoIcon {
-  width: 20px;
-  height: 20px;
-  color: var(--accent, #00a3e0);
-  flex-shrink: 0;
-  margin-top: 2px;
+/* Section blocks */
+.block {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
 }
 
-.infoItem div {
+.block:last-child {
+  border-bottom: none;
+}
+
+.blockTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 4px;
+}
+
+.blockSub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0 0 16px;
+}
+
+/* Profile insights */
+.insightsGrid {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 16px;
 }
 
-.infoLabel {
-  font-size: 12px;
-  font-weight: 600;
+.insightItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.insightIcon {
+  width: 20px;
+  height: 20px;
   color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+  flex-shrink: 0;
 }
 
-.infoValue {
-  font-size: 14px;
+.insightLabel {
+  font-size: 15px;
+  font-weight: 600;
   color: var(--text);
 }
 
-.sectionTitle {
+.pillRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.pillSkill {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 18px;
-  font-weight: 600;
-  margin: 24px 0 12px;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
 }
 
-.sectionIcon {
-  width: 22px;
-  height: 22px;
-  color: var(--accent, #00a3e0);
+.pillEducation {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #166534;
+  background: #dcfce7;
+  border-radius: 999px;
+  width: fit-content;
 }
 
-.list {
-  margin: 8px 0 0 20px;
+html.dark .pillEducation {
+  color: #86efac;
+  background: #14532d;
+}
+
+.pillCheck {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: #16a34a;
+}
+
+html.dark .pillEducation .pillCheck {
+  color: #22c55e;
+}
+
+.showMore {
+  font-size: 14px;
   color: var(--text-muted);
-  font-size: 15px;
-}
-
-.list li {
-  margin-bottom: 6px;
-}
-
-.benefitsList {
-  list-style: none;
-  margin: 8px 0 0;
+  background: none;
+  border: none;
+  cursor: pointer;
   padding: 0;
+  text-decoration: none;
 }
 
-.benefitItem {
+.showMore:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* Job details grid */
+.detailsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detailRow {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 0;
-  font-size: 15px;
-  color: var(--text-muted);
+  flex-wrap: wrap;
 }
 
-.benefitIcon {
-  width: 18px;
-  height: 18px;
-  color: var(--accent, #00a3e0);
+.detailIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--text-muted);
   flex-shrink: 0;
+}
+
+.detailLabel {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  min-width: 70px;
+}
+
+.pillPay {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #166534;
+  background: #dcfce7;
+  border-radius: 999px;
+}
+
+html.dark .pillPay {
+  color: #86efac;
+  background: #14532d;
+}
+
+.pillJobType {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: #9a3412;
+  background: #ffedd5;
+  border-radius: 999px;
+}
+
+html.dark .pillJobType {
+  color: #fdba74;
+  background: #431407;
+}
+
+/* Benefits list */
+.benefitsList {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.benefitsList li {
+  margin-bottom: 6px;
+}
+
+/* Full job description */
+.aboutSub {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+
+.prose {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.prose p {
+  margin-bottom: 12px;
 }

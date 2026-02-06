@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, models } from 'mongoose';
+import mongoose, { Schema, model, models, type Model } from 'mongoose';
 
 export type ApplicationStatus = 'pending' | 'accepted' | 'rejected';
 
@@ -6,6 +6,8 @@ export interface IApplication {
   _id: string;
   jobId: string;
   fullName: string;
+  /** @deprecated legacy - use fullName */
+  name?: string;
   email: string;
   phone?: string;
   github?: string;
@@ -33,4 +35,4 @@ const ApplicationSchema = new Schema<IApplication>(
   { timestamps: true }
 );
 
-export const Application = (models && models.Application) ? models.Application : model<IApplication>('Application', ApplicationSchema);
+export const Application: Model<IApplication> = (models?.Application ?? model<IApplication>('Application', ApplicationSchema)) as Model<IApplication>;

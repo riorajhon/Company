@@ -2,7 +2,11 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function HeroSearch() {
   const router = useRouter();
@@ -14,19 +18,32 @@ export default function HeroSearch() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-wrap gap-3 items-center mt-6">
-      <input
-        type="text"
+    <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5, alignItems: 'center', mt: 3 }}>
+      <TextField
         placeholder="Job title or skills"
         value={q}
         onChange={(e) => setQ(e.target.value)}
         aria-label="Search jobs"
-        className="input min-w-[280px] flex-1"
+        size="medium"
+        sx={{
+          minWidth: 280,
+          flex: 1,
+          '& .MuiOutlinedInput-root': {
+            bgcolor: 'background.paper',
+            '&:hover .MuiOutlinedInput-notchedOutline': { borderColor: 'primary.light' },
+          },
+        }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon color="action" fontSize="small" />
+            </InputAdornment>
+          ),
+        }}
       />
-      <button type="submit" className="btn-primary flex items-center gap-2 px-6 py-3">
-        <MagnifyingGlassIcon className="w-5 h-5" />
+      <Button type="submit" variant="contained" size="large" startIcon={<SearchIcon />}>
         Search jobs
-      </button>
-    </form>
+      </Button>
+    </Box>
   );
 }

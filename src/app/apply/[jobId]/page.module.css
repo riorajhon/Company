@@ -1,28 +1,130 @@
+/* Indeed-style apply page */
 .narrow {
   max-width: 560px;
 }
 
 .backLink {
-  display: inline-block;
-  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 20px;
   font-size: 14px;
   font-weight: 500;
-  color: var(--text-muted);
+  color: #6b7280;
 }
 
 .backLink:hover {
-  color: var(--accent);
+  color: #2563eb;
   text-decoration: none;
 }
 
 .pageTitle {
   font-size: 24px;
   font-weight: 700;
-  margin-bottom: 6px;
+  color: #0f172a;
+  margin: 0 0 4px;
+  line-height: 1.3;
+}
+
+.dark .pageTitle {
+  color: #f1f5f9;
 }
 
 .subtitle {
   font-size: 14px;
-  color: var(--text-muted);
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+.dark .subtitle {
+  color: #94a3b8;
+}
+
+/* Job summary card (Indeed-style) */
+.jobSummary {
+  padding: 16px 20px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
   margin-bottom: 28px;
+  font-size: 14px;
+}
+
+.dark .jobSummary {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.jobSummaryTitle {
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.dark .jobSummaryTitle {
+  color: #f1f5f9;
+}
+
+.jobSummaryMeta {
+  color: #64748b;
+}
+
+.dark .jobSummaryMeta {
+  color: #94a3b8;
+}
+
+/* Indeed-style form (targets ApplyForm children) */
+.applyPage :global(.label) {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.dark .applyPage :global(.label) {
+  color: #e5e7eb;
+}
+
+.applyPage :global(.input) {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  color: #111827;
+}
+
+.applyPage :global(.input):focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.dark .applyPage :global(.input) {
+  background: #1e293b;
+  border-color: #475569;
+  color: #f1f5f9;
+}
+
+.applyPage :global(button[type="submit"]) {
+  width: 100%;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  background: #2563eb !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.applyPage :global(button[type="submit"]):hover:not(:disabled) {
+  background: #1d4ed8 !important;
+}
+
+.applyPage :global(button[type="submit"]:disabled) {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

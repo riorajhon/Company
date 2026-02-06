@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
       location,
       type,
       description,
-      requirements,
+      image,
       published,
       education,
       keyKnowledgeSkills,
@@ -67,13 +67,19 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+    if (!image || typeof image !== 'string' || !image.trim()) {
+      return NextResponse.json(
+        { error: 'Job image is required. Upload an image when posting a job.' },
+        { status: 400 }
+      );
+    }
     const job = await Job.create({
       title,
       workLocation: loc,
       location: loc,
       type,
       description,
-      requirements: Array.isArray(requirements) ? requirements : [],
+      image: (image as string).trim(),
       published: published !== false,
       education: education ?? '',
       keyKnowledgeSkills: Array.isArray(keyKnowledgeSkills) ? keyKnowledgeSkills : [],
@@ -81,7 +87,7 @@ export async function POST(request: NextRequest) {
       benefits: Array.isArray(benefits) ? benefits : [],
       createdBy: session.user?.id ?? undefined,
     });
-    return NextResponse.json(serializeJob(job.toObject() as Parameters<typeof serializeJob>[0]));
+    return NextResponse.json(serializeJob(job.toObject() as unknown as Parameters<typeof serializeJob>[0]));
   } catch (e) {
     console.error(e);
     return NextResponse.json({ error: 'Failed to create job' }, { status: 500 });

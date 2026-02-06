@@ -29,12 +29,12 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
         { status: 400 }
       );
     }
-    const app = await Application.findById(id).lean();
+    const app = await Application.findById(id).lean().exec();
     if (!app) {
       return NextResponse.json({ error: 'Application not found' }, { status: 404 });
     }
     const appDoc = app as { jobId?: string };
-    const job = await Job.findById(appDoc.jobId).lean();
+    const job = await Job.findById(appDoc.jobId).lean().exec();
     if (!job) {
       return NextResponse.json({ error: 'Job not found' }, { status: 404 });
     }
